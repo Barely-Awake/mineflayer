@@ -177,7 +177,7 @@ export interface Bot extends TypedEmitter<BotEvents> {
   physicsEnabled: boolean
   time: Time
   quickBarSlot: number
-  inventory: Window
+  inventory: Window<StorageEvents>
   targetDigBlock: Block
   isSleeping: boolean
   scoreboards: { [name: string]: ScoreBoard }
@@ -456,6 +456,10 @@ export interface Player {
   gamemode: number
   ping: number
   entity: Entity
+  profileKeys?: {
+    publicKey: Buffer
+    signature: Buffer
+  }
 }
 
 export interface ChatPattern {
@@ -606,7 +610,7 @@ export class Painting {
 interface StorageEvents {
   open: () => void
   close: () => void
-  updateSlot: (oldItem: Item | null, newItem: Item) => void
+  updateSlot: (oldItem: Item | null, newItem: Item | null) => void
 }
 
 interface FurnaceEvents extends StorageEvents {
